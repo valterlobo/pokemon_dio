@@ -5,6 +5,7 @@ pragma solidity 0.8.20;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Base64.sol";
 
 contract PokemonDIO is ERC721, ERC721Burnable, Ownable {
     struct Pokemon {
@@ -60,7 +61,26 @@ contract PokemonDIO is ERC721, ERC721Burnable, Ownable {
     // Following functions are overrides required by Solidity.
 
     function tokenURI(uint256 tokenId) public view override(ERC721) returns (string memory) {
-        return super.tokenURI(tokenId);
+        bytes memory metadata = "{";
+
+        bytes memory metadataParcial;
+
+        Pokemon memory p = pokemons[tokenId];
+
+        metadataParcial = abi.encodePacked('"', "name", '": "', p.name, '",');
+        metadata = abi.encodePacked(metadata, metadataParcial);
+
+        metadataParcial = abi.encodePacked(
+            '"', "description", '": "', "Especies ficticias de monstros, cada um com designs e habilidades unicos", '",'
+        );
+        metadata = abi.encodePacked(metadata, metadataParcial);
+
+        metadataParcial = abi.encodePacked('"', "image", '": "', p.img , '"');
+        metadata = abi.encodePacked(metadata, metadataParcial);
+
+        metadata = abi.encodePacked(metadata, " }");
+        string memory attributes64 = Base64.encode(metadata);
+        return string(abi.encodePacked("data:application/json;base64,", attributes64));
     }
 
     function supportsInterface(bytes4 interfaceId) public view override(ERC721) returns (bool) {
