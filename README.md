@@ -3,19 +3,16 @@
 
 O **PokemonDIO** é um Smart Contract que representa uma coleção de Pokémons, onde cada Pokémon é um token não-fungível (NFT) conforme o padrão ERC721. Cada Pokémon possui atributos únicos, como nome, nível e imagem, tornando-os colecionáveis e únicos.
 
+#### Regras da Função `battle`
 
-#### Documentação
+1. **Validação do Proprietário**: Apenas o proprietário do Pokémon atacante (`_attackingPokemon`) pode iniciar uma batalha. Isso é garantido pelo modificador `onlyOwnerOf`.
 
-Para mais detalhes sobre a implementação e funcionalidades do contrato, consulte a documentação completa no GitHub:
-[Documentação do PokemonDIO](https://github.com/valterlobo/pokemon_dio/blob/main/README.md)
+2. **Comparação de Níveis**:
+    - Se o nível do Pokémon atacante (`attacker.level`) for maior ou igual ao nível do Pokémon defensor (`defender.level`), o atacante ganha 2 níveis e o defensor ganha 1 nível.
+    - Caso contrário, o atacante ganha 1 nível e o defensor ganha 2 níveis.
 
-#### Informações do Contrato
+As regras incentiva batalhas frequentes e proporciona um mecanismo de progressão para os Pokémons com base nas batalhas que participam.
 
-- **Número do Contrato**: [0x41639F6cC552546a840f7C39FDad798158426314](https://testnet.bscscan.com/token/0x41639F6cC552546a840f7C39FDad798158426314)
-- **BscScan**: Verifique o contrato no BscScan para visualizar transações e detalhes técnicos.
-  [BscScan do PokemonDIO](https://testnet.bscscan.com/token/0x41639F6cC552546a840f7C39FDad798158426314)
-- **OpenSea (BNB Testnet)**: Explore a coleção de Pokémons no marketplace OpenSea para tokens na rede de teste BNB.
-  [OpenSea - PokemonDIO](https://testnets.opensea.io/collection/pokemondio)
 
 #### Funcionalidades Principais
 
@@ -29,61 +26,46 @@ Para mais detalhes sobre a implementação e funcionalidades do contrato, consul
 - **Iniciar Batalha**: Proporcione batalhas entre Pokémons para aumentar seus níveis e habilidades.
 - **Transferir e Queimar**: Gerencie seus Pokémons, transferindo-os para outros colecionadores ou queimando tokens indesejados.
 
+#### Informações do Contrato
 
-#### Regras da Função `battle`
-
-1. **Validação do Proprietário**: Apenas o proprietário do Pokémon atacante (`_attackingPokemon`) pode iniciar uma batalha. Isso é garantido pelo modificador `onlyOwnerOf`.
-
-2. **Comparação de Níveis**:
-    - Se o nível do Pokémon atacante (`attacker.level`) for maior ou igual ao nível do Pokémon defensor (`defender.level`), o atacante ganha 2 níveis e o defensor ganha 1 nível.
-    - Caso contrário, o atacante ganha 1 nível e o defensor ganha 2 níveis.
-
-As regras incentiva batalhas frequentes e proporciona um mecanismo de progressão para os Pokémons com base nas batalhas que participam.
+- **Número do Contrato**: [0x41639F6cC552546a840f7C39FDad798158426314](https://testnet.bscscan.com/token/0x41639F6cC552546a840f7C39FDad798158426314)
+- **BscScan**: Verifique o contrato no BscScan para visualizar transações e detalhes técnicos.
+  [BscScan do PokemonDIO](https://testnet.bscscan.com/token/0x41639F6cC552546a840f7C39FDad798158426314)
+- **OpenSea (BNB Testnet)**: Explore a coleção de Pokémons no marketplace OpenSea para tokens na rede de teste BNB.
+  [OpenSea - PokemonDIO](https://testnets.opensea.io/collection/pokemondio)
 
 
 ## Implantação 
 
 Para implantar, você precisará de um ambiente de desenvolvimento Ethereum, como o Foundry
 
-### 1. Configurar o .env (template .env.example)
+#### 1. Configurar o .env (template .env.example)
 
-### 2. Compile o contrato
+#### 2. Compile o contrato
 
 ```shell
 forge build
 ```
 
-### 3. Executar os testes do contrato
+#### 3. Executar os testes do contrato
 
   ```shell
   forge test
  ```
 
 
-### 4. Executar o script de "Deploy" do contrato
+#### 4. Executar o script de "Deploy" do contrato
 
 ```shell
 forge script script/PokemonDIO.s.sol:Deploy   --fork-url $RPC_URL  --broadcast 
 ```
 
 
-### 5. Executar o script de "Mint" do Pokemon
+#### 5. Executar o script de "Mint" do Pokemon
 
 ```shell
 forge script script/PokemonDIO.s.sol:Mint   --fork-url $RPC_URL  --broadcast 
 ```
-
-
-## Endereço do contrato na tesnet BSC
-
-
-Número do contrato:     0x41639F6cC552546a840f7C39FDad798158426314
-
-BscScan:                https://testnet.bscscan.com/token/0x41639F6cC552546a840f7C39FDad798158426314
-
-OPenSea   BNB Testnet:  https://testnets.opensea.io/collection/pokemondio
-
-
  
 ## O que é ERC-721 ?
 O ERC-721 é um padrão para tokens não-fungíveis (NFTs) na blockchain Ethereum. Diferente dos tokens fungíveis (como os tokens ERC-20), que são intercambiáveis entre si, cada token ERC-721 é único e pode representar ativos específicos, como obras de arte digitais, colecionáveis, imóveis virtuais, entre outros.
