@@ -42,15 +42,15 @@ print("START.................")
 pok = pokedex.Pokedex(version='v1', user_agent='NFT POKEMON DIO (https://exampleX.com, v2.0.1)')
 
 
-for i in range(20,30):
+for i in range(4):
     print (i+1)
     print("---------------------")
     idx = i + 1 
-    #pokemon = pok.get_pokemon(idx)
+    pokemon = pok.get_pokemon(idx)
     #print(pokemon[0]['number'])
     #print(pokemon[0]['sprite'])
     #print(pokemon[0]['name'])
-    nm = str(idx) # pokemon[0]['name'].lower() 
+    nm =  pokemon[0]['name'].lower() # str(idx) #
     link = "https://pokemondb.net/pokedex/" + nm   
     img = "https://img.pokemondb.net/artwork/large/" + nm  + ".jpg"   
     createPokemonDIO(nm, img, link )

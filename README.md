@@ -48,9 +48,13 @@ forge script script/PokemonDIO.s.sol:Mint   --fork-url $RPC_URL  --broadcast
 ## Endereço do contrato na tesnet BSC
 
 
-Número do contrato: 0x46674914AF6e27f5B8bf4C2bAA7EcdEbE65176A4
+Número do contrato:     0x41639F6cC552546a840f7C39FDad798158426314
 
-BscScan: [https://testnet.bscscan.com/token/0x46674914af6e27f5b8bf4c2baa7ecdebe65176a4]
+BscScan:                https://testnet.bscscan.com/token/0x41639F6cC552546a840f7C39FDad798158426314
+
+OPenSea   BNB Testnet:  https://testnets.opensea.io/collection/pokemondio
+
+
  
 ## O que é ERC-721 ?
 O ERC-721 é um padrão para tokens não-fungíveis (NFTs) na blockchain Ethereum. Diferente dos tokens fungíveis (como os tokens ERC-20), que são intercambiáveis entre si, cada token ERC-721 é único e pode representar ativos específicos, como obras de arte digitais, colecionáveis, imóveis virtuais, entre outros.
