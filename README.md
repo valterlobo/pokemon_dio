@@ -1,7 +1,36 @@
-# PokemonDIO 
+## Projeto: PokemonDIO
 
 
-## Regras da Função `battle`
+O **PokemonDIO** é um Smart Contract que representa uma coleção de Pokémons, onde cada Pokémon é um token não-fungível (NFT) conforme o padrão ERC721. Cada Pokémon possui atributos únicos, como nome, nível e imagem, tornando-os colecionáveis e únicos.
+
+
+#### Documentação
+
+Para mais detalhes sobre a implementação e funcionalidades do contrato, consulte a documentação completa no GitHub:
+[Documentação do PokemonDIO](https://github.com/valterlobo/pokemon_dio/blob/main/README.md)
+
+#### Informações do Contrato
+
+- **Número do Contrato**: [0x41639F6cC552546a840f7C39FDad798158426314](https://testnet.bscscan.com/token/0x41639F6cC552546a840f7C39FDad798158426314)
+- **BscScan**: Verifique o contrato no BscScan para visualizar transações e detalhes técnicos.
+  [BscScan do PokemonDIO](https://testnet.bscscan.com/token/0x41639F6cC552546a840f7C39FDad798158426314)
+- **OpenSea (BNB Testnet)**: Explore a coleção de Pokémons no marketplace OpenSea para tokens na rede de teste BNB.
+  [OpenSea - PokemonDIO](https://testnets.opensea.io/collection/pokemondio)
+
+#### Funcionalidades Principais
+
+1. **Criação de Novos Pokémons**: O contrato permite a criação de novos Pokémons, cada um com atributos únicos, que são mintados e atribuídos a um endereço especificado.
+2. **Batalhas de Pokémons**: Proprietários de Pokémons podem iniciar batalhas entre seus Pokémons e os de outros jogadores, com a possibilidade de aumentar os níveis dos Pokémons vencedores.
+3. **Transferência e Queima**: Tokens podem ser transferidos entre endereços e também queimados, removendo-os permanentemente da coleção.
+
+#### Interações
+
+- **Mintar Novo Pokémon**: Crie novos Pokémons e adicione-os à coleção.
+- **Iniciar Batalha**: Proporcione batalhas entre Pokémons para aumentar seus níveis e habilidades.
+- **Transferir e Queimar**: Gerencie seus Pokémons, transferindo-os para outros colecionadores ou queimando tokens indesejados.
+
+
+#### Regras da Função `battle`
 
 1. **Validação do Proprietário**: Apenas o proprietário do Pokémon atacante (`_attackingPokemon`) pode iniciar uma batalha. Isso é garantido pelo modificador `onlyOwnerOf`.
 
