@@ -1,66 +1,86 @@
-## Foundry
+# PokemonDIO 
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
 
-Foundry consists of:
+## Regras da Função `battle`
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+1. **Validação do Proprietário**: Apenas o proprietário do Pokémon atacante (`_attackingPokemon`) pode iniciar uma batalha. Isso é garantido pelo modificador `onlyOwnerOf`.
 
-## Documentation
+2. **Comparação de Níveis**:
+    - Se o nível do Pokémon atacante (`attacker.level`) for maior ou igual ao nível do Pokémon defensor (`defender.level`), o atacante ganha 2 níveis e o defensor ganha 1 nível.
+    - Caso contrário, o atacante ganha 1 nível e o defensor ganha 2 níveis.
 
-https://book.getfoundry.sh/
+As regras incentiva batalhas frequentes e proporciona um mecanismo de progressão para os Pokémons com base nas batalhas que participam.
 
-## Usage
 
-### Build
+## Implantação 
 
-```shell
-$ forge build
-```
+Para implantar, você precisará de um ambiente de desenvolvimento Ethereum, como o Foundry
 
-### Test
+### 1. Configurar o .env (template .env.example)
+
+### 2. Compile o contrato
 
 ```shell
-$ forge test
+forge build
 ```
 
-### Format
+### 3. Executar os testes do contrato
+
+  ```shell
+  forge test
+ ```
+
+
+### 4. Executar o script de "Deploy" do contrato
 
 ```shell
-$ forge fmt
+forge script script/PokemonDIO.s.sol:Deploy   --fork-url $RPC_URL  --broadcast 
 ```
 
-### Gas Snapshots
+
+### 5. Executar o script de "Mint" do Pokemon
 
 ```shell
-$ forge snapshot
+forge script script/PokemonDIO.s.sol:Mint   --fork-url $RPC_URL  --broadcast 
 ```
 
-### Anvil
 
-```shell
-$ anvil
-```
+## Endereço do contrato na tesnet BSC
 
-### Deploy
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
+Número do contrato: 0x46674914AF6e27f5B8bf4C2bAA7EcdEbE65176A4
 
-### Cast
+BscScan: [https://testnet.bscscan.com/token/0x46674914af6e27f5b8bf4c2baa7ecdebe65176a4]
+ 
+## O que é ERC-721 ?
+O ERC-721 é um padrão para tokens não-fungíveis (NFTs) na blockchain Ethereum. Diferente dos tokens fungíveis (como os tokens ERC-20), que são intercambiáveis entre si, cada token ERC-721 é único e pode representar ativos específicos, como obras de arte digitais, colecionáveis, imóveis virtuais, entre outros.
 
-```shell
-$ cast <subcommand>
-```
+### Características Principais do ERC-721
 
-### Help
+1. **Não-Fungibilidade**: Cada token ERC-721 é único, com um identificador distinto. Isso significa que dois tokens ERC-721 não podem ser trocados diretamente um pelo outro de forma equivalente, pois cada um tem atributos e valores únicos.
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+2. **Propriedade e Transferência**: Como outros tokens, os tokens ERC-721 podem ser possuídos e transferidos entre contas. Eles têm funções para consultar o proprietário e transferir tokens entre endereços.
+
+3. **Metadados**: Tokens ERC-721 podem ter metadados associados a eles, como nome, descrição e link para uma imagem ou outro tipo de mídia. Isso é útil para representar itens digitais com características únicas.
+
+4. **Aprovação e Transferência Segura**: O ERC-721 inclui funções para aprovação de terceiros para transferir tokens em nome do proprietário, bem como funções de transferência segura para garantir que os tokens não sejam enviados para endereços que não podem gerenciá-los.
+
+### Funções Principais do ERC-721
+
+- `balanceOf(address owner)`: Retorna o número de tokens possuídos por um endereço.
+- `ownerOf(uint256 tokenId)`: Retorna o endereço do proprietário de um token específico.
+- `safeTransferFrom(address from, address to, uint256 tokenId)`: Transfere a propriedade de um token de forma segura.
+- `transferFrom(address from, address to, uint256 tokenId)`: Transfere a propriedade de um token.
+- `approve(address to, uint256 tokenId)`: Aprova um endereço para transferir um token específico em nome do proprietário.
+- `getApproved(uint256 tokenId)`: Retorna o endereço aprovado para um token específico.
+- `setApprovalForAll(address operator, bool approved)`: Aprova ou remove a aprovação para um operador gerenciar todos os tokens do proprietário.
+- `isApprovedForAll(address owner, address operator)`: Verifica se um operador está aprovado para gerenciar todos os tokens de um proprietário.
+
+### Exemplo de Uso do ERC-721
+
+Os tokens ERC-721 são amplamente utilizados para representar itens colecionáveis digitais, como no jogo **CryptoKitties**, onde cada "gato" é um token ERC-721 com características únicas. Eles também são usados em marketplaces de arte digital, como o **OpenSea**, onde artistas podem vender obras de arte digitais únicas como NFTs.
+
+### Benefícios do ERC-721
+
+- **Autenticidade e Escassez**: Como cada token é único, os NFTs podem provar a autenticidade e a propriedade de itens digitais, bem como a sua escassez.
+- **Interoperabilidade**: Por seguir um padrão comum, os tokens ERC-721 podem ser suportados por diferentes plataformas e aplicativos na Ethereum, permitindo um ecossistema rico e interoperável.

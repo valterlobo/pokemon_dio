@@ -21,17 +21,17 @@ contract PokemonDIOTest is Test {
 
     function test_createNewPokemon() public {
         vm.prank(gameowner);
-        nftPKD.createNewPokemon("POC1", jog1, "http://pkd/01.jpg");
+        nftPKD.createNewPokemon("POC1", jog1, "http://pkd/01.jpg", "http://pkd/01.html");
         assertEq(1, nftPKD.balanceOf(jog1));
         vm.stopPrank();
     }
 
     function test_battle() public {
         vm.prank(gameowner);
-        nftPKD.createNewPokemon("POC2", jog2, "http://pkd/02.jpg");
+        nftPKD.createNewPokemon("POC2", jog2, "http://pkd/02.jpg", "http://pkd/02.html");
         assertEq(1, nftPKD.balanceOf(jog2));
         vm.prank(gameowner);
-        nftPKD.createNewPokemon("POC3", jog3, "http://pkd/03.jpg");
+        nftPKD.createNewPokemon("POC3", jog3, "http://pkd/03.jpg", "http://pkd/03.html");
         assertEq(1, nftPKD.balanceOf(jog3));
         vm.stopPrank();
 
@@ -59,10 +59,10 @@ contract PokemonDIOTest is Test {
 
     function test_battle_owner() public {
         vm.prank(gameowner);
-        nftPKD.createNewPokemon("POC2", jog2, "http://pkd/02.jpg");
+        nftPKD.createNewPokemon("POC2", jog2, "http://pkd/02.jpg", "http://pkd/02.html");
         assertEq(1, nftPKD.balanceOf(jog2));
         vm.prank(gameowner);
-        nftPKD.createNewPokemon("POC3", jog3, "http://pkd/03.jpg");
+        nftPKD.createNewPokemon("POC3", jog3, "http://pkd/03.jpg", "http://pkd/02.html");
         assertEq(1, nftPKD.balanceOf(jog3));
         vm.stopPrank();
 
@@ -73,7 +73,7 @@ contract PokemonDIOTest is Test {
 
     function test_getPokemonInfo() public {
         vm.prank(gameowner);
-        nftPKD.createNewPokemon("POC2", jog2, "http://pkd/02.jpg");
+        nftPKD.createNewPokemon("POC2", jog2, "http://pkd/02.jpg", "http://pkd/02.html");
         assertEq(1, nftPKD.balanceOf(jog2));
         PokemonDIO.Pokemon memory pkd = nftPKD.getPokemonInfo(0);
         assertEq("POC2", pkd.name);
@@ -86,7 +86,7 @@ contract PokemonDIOTest is Test {
 
     function test_tokenURI() public {
         vm.prank(gameowner);
-        nftPKD.createNewPokemon("POC2", jog2, "http://pkd/02.jpg");
+        nftPKD.createNewPokemon("POC2", jog2, "http://pkd/02.jpg", "http://pkd/02.html");
         assertEq(1, nftPKD.balanceOf(jog2));
         PokemonDIO.Pokemon memory pkd = nftPKD.getPokemonInfo(0);
         assertEq("POC2", pkd.name);

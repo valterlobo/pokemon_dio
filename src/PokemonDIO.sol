@@ -6,12 +6,14 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract PokemonDIO is ERC721, ERC721Burnable, Ownable {
     struct Pokemon {
         string name;
         uint256 level;
         string img;
+        string link;
     }
 
     Pokemon[] private pokemons;
@@ -29,9 +31,12 @@ contract PokemonDIO is ERC721, ERC721Burnable, Ownable {
         (attacker.level, defender.level) = playLevel(attacker.level, defender.level);
     }
 
-    function createNewPokemon(string memory _name, address _to, string memory _img) public onlyOwner {
+    function createNewPokemon(string memory _name, address _to, string memory _img, string memory _link)
+        public
+        onlyOwner
+    {
         uint256 id = pokemons.length;
-        pokemons.push(Pokemon(_name, random(), _img));
+        pokemons.push(Pokemon(_name, random(), _img, _link));
         _safeMint(_to, id);
     }
 
@@ -75,10 +80,35 @@ contract PokemonDIO is ERC721, ERC721Burnable, Ownable {
         );
         metadata = abi.encodePacked(metadata, metadataParcial);
 
-        metadataParcial = abi.encodePacked('"', "image", '": "', p.img , '"');
+        metadataParcial = abi.encodePacked('"', "image", '": "', p.img, '"');
         metadata = abi.encodePacked(metadata, metadataParcial);
 
-        metadata = abi.encodePacked(metadata, " }");
+        metadata = abi.encodePacked(metadata, ",");
+        //attributes
+        metadata = abi.encodePacked(metadata, '"attributes": [');
+
+        //LEVEL
+        metadata = abi.encodePacked(metadata, "{");
+        metadataParcial = abi.encodePacked('"', "trait_type", '": "', "LEVEL", '",');
+        metadata = abi.encodePacked(metadata, metadataParcial);
+        metadataParcial = abi.encodePacked('"', "value", '": "', Strings.toString(p.level), '"');
+        metadata = abi.encodePacked(metadata, metadataParcial);
+        metadata = abi.encodePacked(metadata, "}");
+
+        metadata = abi.encodePacked(metadata, ",");
+
+        //LINK
+        metadata = abi.encodePacked(metadata, "{");
+        metadataParcial = abi.encodePacked('"', "trait_type", '": "', "LINK", '",');
+        metadata = abi.encodePacked(metadata, metadataParcial);
+
+        metadataParcial = abi.encodePacked('"', "value", '": "', p.link, '"');
+        metadata = abi.encodePacked(metadata, metadataParcial);
+        metadata = abi.encodePacked(metadata, "}");
+
+        metadata = abi.encodePacked(metadata, " ] }");
+
+        //metadata = abi.encodePacked(metadata, " }");
         string memory attributes64 = Base64.encode(metadata);
         return string(abi.encodePacked("data:application/json;base64,", attributes64));
     }
